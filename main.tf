@@ -18,7 +18,8 @@ module "network" {
 #********* EKS_Cluster ************#
 module "eks" {
   source = "./eks"
-
+  account_id = var.account_id
+  region = var.region
   eks_name = var.eks_name
 
   public_subnet_id_1 = module.network.public_subnet_id_1
@@ -99,4 +100,12 @@ module "secret_manger" {
 
    REDIS_HOSTNAME = "${module.redis.redis_host}"
    REDIS_PORT = "${module.redis.redis_port}"
+}
+
+
+#******* Helm *********** #
+
+module "Helm" {
+  source = "./helm"
+  eks_cluster = module.eks.eks_name
 }

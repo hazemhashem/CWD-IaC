@@ -117,3 +117,6 @@ variable "parameter_group_name_redis" {
 variable "engine_version_redis" {
   type = string
 }
+variable "account_id" {
+  type = string
+}

@@ -1,3 +1,4 @@
+#***** Network ******#
 region = "us-east-1"
 
 
@@ -12,6 +13,7 @@ availability_zone_a = "us-east-1a"
 availability_zone_b = "us-east-1b"
 
 
+account_id = "992382456559"
 eks_name = "cwd_eks"
 
 #***** Node_group ******#
@@ -19,10 +21,10 @@ node_name      = "private_node"
 ami_type       = "AL2_x86_64"
 capacity_type  = "ON_DEMAND"
 disk_size      = "20"
-instance_types = "t3.small"
-desired_size   = 1
-max_size       = 4
-min_size       = 0
+instance_types = "t3.medium"
+desired_size   = 2
+max_size       = 3
+min_size       = 1
 
 #************** RDS ************#
   allocated_storage    = 10

@@ -21,6 +21,8 @@ resource "aws_eks_node_group" "private-ng" {
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.AmazonEBSCSIDriverPolicy,
+    aws_iam_role_policy_attachment.secret_manager_policy_for_eks_nodes,
+    aws_iam_role_policy_attachment.AutoscalingSetDesiredCapacityPolicy,
   ]
     tags = {
         name = "worker-node-1"

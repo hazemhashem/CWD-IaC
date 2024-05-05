@@ -44,8 +44,13 @@ resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverPolicy" {
 
 }
 
-resource "aws_iam_instance_profile" "worker" {
-  depends_on = [aws_iam_role.worker_role]
-  name       = "eks-worker-new-profile"
+resource "aws_iam_role_policy_attachment" "secret_manager_policy_for_eks_nodes" {
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+  role       = aws_iam_role.worker_role.name
+}
+
+
+resource "aws_iam_role_policy_attachment" "AutoscalingSetDesiredCapacityPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess" 
   role       = aws_iam_role.worker_role.name
 }
