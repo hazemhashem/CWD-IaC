@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "sct_mng" {
-  name = "db_secret"
+  name = "db-secret"
   recovery_window_in_days = 0
 }
 

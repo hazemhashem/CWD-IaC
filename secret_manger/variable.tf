@@ -23,3 +23,15 @@ variable "REDIS_HOSTNAME" {
 variable "REDIS_PORT" {
   type = string
 }
+
+
+variable "OIDC_URL" {
+  type = string
+}
+variable "account_id" {
+  type = string
+}
+variable "region" {
+  type = string
+}
+

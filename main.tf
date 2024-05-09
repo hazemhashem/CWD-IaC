@@ -100,6 +100,9 @@ module "secret_manger" {
 
    REDIS_HOSTNAME = "${module.redis.redis_host}"
    REDIS_PORT = "${module.redis.redis_port}"
+   account_id = var.account_id
+   OIDC_URL = module.eks.OIDC_URL
+   region = var.region
 }
 
 
