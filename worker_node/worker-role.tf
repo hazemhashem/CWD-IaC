@@ -19,6 +19,31 @@ POLICY
 
 
 
+resource "aws_iam_policy" "eks_autoscaler_policy" {
+  name        = "EKSClusterAutoscalerPolicy"
+  description = "IAM policy for EKS Cluster Autoscaler"
+  
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : [
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeTags",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "ec2:DescribeLaunchTemplateVersions"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+}
+
+
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.worker_role.name
@@ -38,19 +63,12 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
 
 }
 
-resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-  role       = aws_iam_role.worker_role.name
-
-}
-
-resource "aws_iam_role_policy_attachment" "secret_manager_policy_for_eks_nodes" {
-  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+resource "aws_iam_role_policy_attachment" "attach_autoscaler_policy" {
+  policy_arn = aws_iam_policy.eks_autoscaler_policy.arn
   role       = aws_iam_role.worker_role.name
 }
 
-
-resource "aws_iam_role_policy_attachment" "AutoscalingSetDesiredCapacityPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess" 
+resource "aws_iam_role_policy_attachment" "AmazonEFSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
   role       = aws_iam_role.worker_role.name
 }

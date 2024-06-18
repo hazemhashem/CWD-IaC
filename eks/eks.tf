@@ -14,7 +14,7 @@ resource "aws_eks_cluster" "eks" {
       provisioner "local-exec" {
     command = <<EOT
         aws eks update-kubeconfig --region "${var.region}" --name "${var.eks_name}"
-        export KUBECONFIG=~/.kube/config
+        kubectl create ns cwd-app
     EOT
   }
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
